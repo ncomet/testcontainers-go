@@ -1,3 +1,4 @@
 = testcontainers-go
 
-Code sample for the medium article
+Code sample for the Medium article
+https://medium.com/@nicolas.comet/go-testcontainers-4b5399b849d9
