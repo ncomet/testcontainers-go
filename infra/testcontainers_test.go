@@ -51,17 +51,17 @@ func TestMain(m *testing.M) {
 		ctx, cancel := context.WithTimeout(ctx, 10*time.Second)
 		defer cancel()
 		client, err := mdriver.Connect(ctx, options.Client().ApplyURI(mongoContainer.URI))
-		defer func() {
-			if err = client.Disconnect(ctx); err != nil {
-				panic(err)
-			}
-		}()
 		if err != nil {
 			log.Printf("Could not connect to mongodb, fallback to mem repository implementations.\nerror: %s.\n", err)
 			allGames = mem.NewAllGames()
 		} else {
 			allGames = mongo.NewAllGames(client)
 		}
+		defer func() {
+			if err = client.Disconnect(ctx); err != nil {
+				panic(err)
+			}
+		}()
 	}
 
 	code = m.Run()
